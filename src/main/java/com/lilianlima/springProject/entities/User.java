@@ -1,13 +1,20 @@
 package com.lilianlima.springProject.entities;
 
 import java.io.Serializable;
-import java.io.Serializable;
-import java.io.Serializable;
-import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class User implements Serializable {
-	//Serializable para ser transformado em cadeia de dados
+	private static final long serialVerionUID =1L;
+	
+	//Para dizer q o Id é chave primaria
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id	
 	private Long id;
 	private String name;
 	private String email;
