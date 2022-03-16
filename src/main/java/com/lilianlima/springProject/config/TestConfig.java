@@ -13,7 +13,7 @@ import com.lilianlima.springProject.repositories.UserRepository;
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner{
-	//injeção de dependencia
+	
 	@Autowired
 	private UserRepository userRepository;
 	
