@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.lilianlima.springProject.entities.Category;
 import com.lilianlima.springProject.entities.Order;
 import com.lilianlima.springProject.entities.OrderItem;
+import com.lilianlima.springProject.entities.Payment;
 import com.lilianlima.springProject.entities.Product;
 import com.lilianlima.springProject.entities.User;
 import com.lilianlima.springProject.entities.enums.OrderStatus;
@@ -81,6 +82,11 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1); //obj dependente 1:1 associação de mao dupla em memoria
+
+		orderRepository.save(o1);
 	}
 
 }

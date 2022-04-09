@@ -12,34 +12,38 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String nameString;
+	private String name;
 	private String description;
 	private Double price;
 	private String imgUrl;
-	
+
 	@ManyToMany
-	@JoinTable(name = "tb_product_category", 
-	joinColumns = @JoinColumn(name = "product_id"),
-	inverseJoinColumns = @JoinColumn(name = "category_id") )
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
+
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> items = new HashSet<>();//set e nao list, para nao aceitar repetiçoes
 	
-	public Product() {		
+	public Product() {
 	}
 
-	public Product(Long id, String nameString, String description, Double price, String imgUrl) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		super();
 		this.id = id;
-		this.nameString = nameString;
+		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.imgUrl = imgUrl;
@@ -53,12 +57,12 @@ public class Product implements Serializable {
 		this.id = id;
 	}
 
-	public String getNameString() {
-		return nameString;
+	public String getName() {
+		return name;
 	}
 
-	public void setNameString(String nameString) {
-		this.nameString = nameString;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescription() {
@@ -89,6 +93,16 @@ public class Product implements Serializable {
 		return categories;
 	}
 
+	//varre a coleção de orderItem e pra cada orderItem pega o order associado a ele
+	@JsonIgnore
+	public Set<Order> getOrders() {
+		Set<Order> set = new HashSet<>();
+		for (OrderItem x : items) {
+			set.add(x.getOrder());
+		}
+		return set;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
