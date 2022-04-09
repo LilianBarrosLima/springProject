@@ -41,7 +41,7 @@ public class Order implements Serializable {
 	@OneToMany(mappedBy ="id.order")//no OrderItem tem o id que por sua vez tem o order
 	private Set<OrderItem> items = new HashSet<>();
 	
-	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL) //atributo na classe Payment, cascade=1:1 mapeando as duas unidades para ter o mesmo codigo ID(ex se o pedido for cod 5 o payment tera o cod 5 tb
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL) //atributo na classe Payment, cascade=1:1 mapeando as duas unidades para ter o mesmo codigo ID(ex: se o pedido for cod 5 o payment tera o cod 5 tb
 	private Payment payment;
 
 	public Order() {

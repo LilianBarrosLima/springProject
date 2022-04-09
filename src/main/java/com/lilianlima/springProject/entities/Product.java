@@ -93,7 +93,6 @@ public class Product implements Serializable {
 		return categories;
 	}
 
-	//varre a coleção de orderItem e pra cada orderItem pega o order associado a ele
 	@JsonIgnore
 	public Set<Order> getOrders() {
 		Set<Order> set = new HashSet<>();
