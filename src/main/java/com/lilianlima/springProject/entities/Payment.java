@@ -24,7 +24,7 @@ public class Payment implements Serializable { //classe dependente de Orders
 	private Long id;
 	private Instant moment;
 	
-	@JsonIgnore
+	@JsonIgnore //pq o Order tem Payment payment
 	@OneToOne
 	@MapsId
 	private Order order;
